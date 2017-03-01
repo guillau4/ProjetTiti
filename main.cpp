@@ -8,7 +8,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
 
     WindowManager winMan(window);
-    EventManager evMan(window);
+    EventManager evMan(winMan);
 
     while (window.isOpen())
     {

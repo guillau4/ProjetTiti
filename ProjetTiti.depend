@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1488380630 source:c:\users\demo\documents\programmation\projettiti\main.cpp
+1488381728 source:c:\users\demo\documents\programmation\projettiti\main.cpp
 	<SFML/Graphics.hpp>
 	"EventManager.h"
 	"WindowManager.h"
@@ -392,15 +392,18 @@
 	<string>
 	<vector>
 
-1488380630 c:\users\demo\documents\programmation\projettiti\include\eventmanager.h
+1488381720 c:\users\demo\documents\programmation\projettiti\include\eventmanager.h
 	<SFML/Graphics.hpp>
+	"WindowManager.h"
 
-1488380630 c:\users\demo\documents\programmation\projettiti\include\windowmanager.h
+1488383730 c:\users\demo\documents\programmation\projettiti\include\windowmanager.h
 	<SFML/Graphics.hpp>
+	<vector>
+	<cmath>
 
-1488380630 source:c:\users\demo\documents\programmation\projettiti\src\eventmanager.cpp
+1488383019 source:c:\users\demo\documents\programmation\projettiti\src\eventmanager.cpp
 	"EventManager.h"
 
-1488380630 source:c:\users\demo\documents\programmation\projettiti\src\windowmanager.cpp
+1488382474 source:c:\users\demo\documents\programmation\projettiti\src\windowmanager.cpp
 	"WindowManager.h"
 

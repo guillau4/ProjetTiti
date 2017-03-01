@@ -1,7 +1,8 @@
 #include "EventManager.h"
 
-EventManager::EventManager(sf::RenderWindow &w)
-: window(&w)
+EventManager::EventManager(WindowManager& wM)
+: winMan(wM)
+, window(&(wM.getWindowAddress()))
 {
 
 }
@@ -12,27 +13,41 @@ EventManager::~EventManager()
 }
 
 void EventManager::checkEvent(){
-    sf::Event event;
     while (window->pollEvent(event))
     {
         switch(event.type){
-            case(sf::Event::Closed) :
+            case sf::Event::Closed :
                 window->close();
-            break;
+                break;
 
-            case(sf::Event::MouseButtonPressed) :
-                switch(event.mouseButton.button){
-                    case(sf::Mouse::Right) :
-                        //
-                    break;
+            case sf::Event::MouseButtonPressed :
+                clic(event);
+                break;
 
-                    default:
-                    break;
-                }
-            break;
+
 
             default :
-            break;
+                break;
         }
+    }
+}
+
+void EventManager::clic(sf::Event event){
+    switch (event.mouseButton.button){
+        case sf::Mouse::Right:
+            switch (winMan.typeClic(event.mouseButton.x, event.mouseButton.y)){
+                // Ask windowManager what we just clicked on
+
+                case 1 :
+                    break;
+
+                default :
+                    break;
+            }
+            break;
+
+        default :
+            // ignores other kind of clicks
+            break;
     }
 }
