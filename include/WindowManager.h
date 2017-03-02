@@ -6,10 +6,7 @@
 #include <cmath>
 
 typedef struct{
-    int x;
-    int y;
-    int xlenght;
-    int ylenght;
+    sf::RectangleShape rect;
     int type;
 } widget;
 
@@ -20,16 +17,20 @@ class WindowManager
         virtual ~WindowManager();
         sf::RenderWindow& getWindowAddress();
         void draw();
-        int typeClic(int x, int y);
+        int typeClick();
         void addButton(int x, int y, int w, int h, int t);
         void addButton(widget w);
+        void changeBackground(int type);
+        void setMode3();
 
     protected:
 
     private:
+        sf::Clock clock;
         sf::RenderWindow *window;
-        sf::CircleShape shape;
+        sf::RectangleShape shape;
         std::vector<widget> allButtons;
+        int red, green, blue, alpha, mode3;
 };
 
 #endif // WINDOWMANAGER_H

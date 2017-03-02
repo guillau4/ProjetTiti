@@ -10,12 +10,13 @@ class EventManager
         EventManager(WindowManager &wM);
         virtual ~EventManager();
         void checkEvent();
-        void clic(sf::Event event);
+        void click(sf::Event event);
+        void keyboard(sf::Event event);
 
     protected:
 
     private:
-        WindowManager winMan;
+        WindowManager* winMan;
         sf::RenderWindow* window;
         sf::Event event;
 };
