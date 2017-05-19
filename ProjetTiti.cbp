@@ -40,11 +40,13 @@
 			<Add library="sfml-system" />
 			<Add directory="C:/Users/demo/Documents/Programmation/SFML-2.4.2/lib" />
 		</Linker>
-		<Unit filename="include/EventManager.h" />
-		<Unit filename="include/WindowManager.h" />
+		<Unit filename="include/AudioFile.h" />
+		<Unit filename="include/AudioFileWAV.h" />
+		<Unit filename="include/FileManager.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="src/EventManager.cpp" />
-		<Unit filename="src/WindowManager.cpp" />
+		<Unit filename="src/AudioFile.cpp" />
+		<Unit filename="src/AudioFileWAV.cpp" />
+		<Unit filename="src/FileManager.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

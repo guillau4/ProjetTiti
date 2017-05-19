@@ -1,23 +1,26 @@
 #include <SFML/Graphics.hpp>
 
-#include "EventManager.h"
-#include "WindowManager.h"
+#include "FileManager.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1000, 800), "SFML works!");
 
-    WindowManager winMan(window);
-    EventManager evMan(winMan);
 
-    winMan.addButton(350, 100, 300, 200, 1);
-    winMan.addButton(350, 500, 300, 200, 2);
+    // Test audio manipulation
 
-    while (window.isOpen())
-    {
-        evMan.checkEvent();
-        winMan.draw();
+    FileManager file_manager;
+
+    file_manager.open("canary.wav");
+    file_manager.close("canary.wav");
+
+    if (file_manager.getSize() == 0) {
+        std::cout << "  Vector cleared properly" << std::endl;
+    } else {
+        std::cout << "  WARNING : Vector not cleared properly !" << std::endl;
     }
+    // End test
+
+
 
     return 0;
 }
