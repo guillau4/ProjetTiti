@@ -163,14 +163,17 @@ unsigned long AudioFile::toLong(int length) {
     }
 
     char * buffer = new char [length];
-    unsigned long returnLong;
+    unsigned long returnLong = 0;
 
     fileIn.read (buffer, length);
 
-    returnLong = (unsigned char) buffer[0];
-    returnLong += (unsigned char) buffer[1] * 256;
-    returnLong += (unsigned char) buffer[2] * 256 * 256;
-    returnLong += (unsigned char) buffer[3] * 256 * 256 * 256;
+    for (int i = 0; i < length; i += 1) {
+        int power = 1;
+        for (int j = 0; j < i; j += 1) {
+            power *= 256;
+        }
+        returnLong += (unsigned char) buffer[i] * power;
+    }
 
     return returnLong;
 }
