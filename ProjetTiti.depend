@@ -1,6 +1,5 @@
 # depslib dependency file v1.0
-1495200073 source:c:\users\demo\documents\programmation\projettiti\main.cpp
-	<SFML/Graphics.hpp>
+1495200600 source:c:\users\demo\documents\programmation\projettiti\main.cpp
 	"FileManager.h"
 
 1487201669 c:\users\demo\documents\programmation\sfml-2.4.2\include\sfml\graphics.hpp
@@ -411,7 +410,7 @@
 	"AudioFile.h"
 	<vector>
 
-1495199104 source:c:\users\demo\documents\programmation\projettiti\src\filemanager.cpp
+1495200133 source:c:\users\demo\documents\programmation\projettiti\src\filemanager.cpp
 	"FileManager.h"
 
 1495197991 c:\users\demo\documents\programmation\projettiti\include\audiofile.h
@@ -422,10 +421,10 @@
 	<sys/stat.h>
 	<unistd.h>
 
-1495199381 source:c:\users\demo\documents\programmation\projettiti\src\audiofile.cpp
+1495200133 source:c:\users\demo\documents\programmation\projettiti\src\audiofile.cpp
 	"AudioFile.h"
 
-1495199966 source:c:\users\demo\documents\programmation\projettiti\src\audiofilewav.cpp
+1495200133 source:c:\users\demo\documents\programmation\projettiti\src\audiofilewav.cpp
 	"AudioFileWAV.h"
 
 1495196170 c:\users\demo\documents\programmation\projettiti\include\audiofilewav.h

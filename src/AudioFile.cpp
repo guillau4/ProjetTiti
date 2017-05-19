@@ -123,7 +123,7 @@ std::string AudioFile::toString(int length) {
 
     fileIn.read (buffer, length);
 
-    std::string s (buffer);
+    std::string s(buffer, length);
 
     return s;
 }
