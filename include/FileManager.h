@@ -30,6 +30,14 @@ class FileManager
         int close(std::string fileName);
         int close(std::string fileName, unsigned int depth);
 
+        int getIndex(std::string fileName, unsigned int depth);
+
+        int clone(std::string fileName);
+        int clone(std::string fileName, unsigned int depth);
+
+        int save(std::string fileName);
+        int save(std::string fileName, unsigned int depth);
+
         int getSize() {return audio_list.size();};
 
     protected:

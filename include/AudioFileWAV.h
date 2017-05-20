@@ -19,10 +19,14 @@ typedef struct {
     unsigned long BytePerBloc;
     unsigned long BitsPerSample;
 
+    unsigned long ExtraParamSize;
+    std::string * ExtraParamString;
+    unsigned long * ExtraParamLong;
+
     std::string DataBlocID;
     unsigned long DataSize;
 
-    char * Data;
+    char ** Data;
 
 } WAV;
 
@@ -37,8 +41,20 @@ class AudioFileWAV : public AudioFile
         void readWAV();
         void readHeaderWAV();
         void getDataWAV();
+
+        void updateAUDIO();
+        void updateAUDIO(WAV w, AUDIO a);
+        void updateAUDIO(AUDIO a, WAV w);
+
+        void updateWAV();
+        void updateWAV(WAV w, AUDIO a);
+        void updateWAV(AUDIO a, WAV w);
+
         void createWAV(WAV input_WAV);
         void createWAV();
+
+        int clone() override;
+        int save() override;
 
         //void applyEffect();
 

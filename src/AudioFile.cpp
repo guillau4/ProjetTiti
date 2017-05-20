@@ -36,11 +36,45 @@ AudioFile::~AudioFile()
 
 int AudioFile::open() {
 
-    std::string name_;
     // Step 1 : Should test if the original is missing
 
     // Step 2 : Open the original
-    openIn(name);
+    openIn();
+
+    return 0;
+
+}
+
+
+int AudioFile::openIn() {
+    fileIn.open(pathIn + name + extension, std::ios::binary);
+
+    return 0;
+}
+
+
+int AudioFile::openOut() {
+    fileOut.open(pathOut + name + extension, std::ios::binary);
+
+    return 0;
+}
+
+int AudioFile::openOut(int n) {
+    std::string name_;
+
+    std::stringstream sstm;
+    sstm << pathOut << name << "_" << n << extension;
+    name_ = sstm.str();
+
+    fileOut.open(name_, std::ios::binary);
+
+    return 0;
+}
+
+
+int AudioFile::findNameAndOpenOut() {
+
+    std::string name_;
 
     std::cout << "\tLooking for an unused output name :" << std::endl;
     std::cout << std::endl;
@@ -49,7 +83,7 @@ int AudioFile::open() {
     name_ = pathOut + name + extension;
     if (!exists_test(name_)) {
         // Step 3.1 : If the file does not exit yet
-        openOut(name);
+        openOut();
 
     } else {
         // Step 3.2 : Else we  add "_2" or "_3" etc to make it unique
@@ -67,36 +101,13 @@ int AudioFile::open() {
                 break;
             }
         } while (exists_test(name_));
-        openOut(name, i);
+        openOut(i);
     }
 
     std::cout << std::endl;
     std::cout << "  Name found : " << name_ << std::endl;
     std::cout << std::endl;
     std::cout << " =================================================="<< std::endl;
-}
-
-
-int AudioFile::openIn(std::string name) {
-    fileIn.open(pathIn + name + extension, std::ios::binary);
-
-    return 0;
-}
-
-int AudioFile::openOut(std::string name) {
-    fileOut.open(pathOut + name + extension, std::ios::binary);
-
-    return 0;
-}
-
-int AudioFile::openOut(std::string name, int n) {
-    std::string name_;
-
-    std::stringstream sstm;
-    sstm << pathOut << name << "_" << n << extension;
-    name_ = sstm.str();
-
-    fileOut.open(name_, std::ios::binary);
 
     return 0;
 }
@@ -105,6 +116,21 @@ int AudioFile::openOut(std::string name, int n) {
 int AudioFile::close() {
     fileIn.close();
     fileOut.close();
+
+    return 0;
+}
+
+
+int AudioFile::save() {
+
+    findNameAndOpenOut();
+
+    return 0;
+}
+
+int AudioFile::clone() {
+
+    audioOut = audioIn;
 
     return 0;
 }
@@ -177,6 +203,24 @@ unsigned long AudioFile::toLong(int length) {
 
     return returnLong;
 }
+
+
+
+char ** AudioFile::deepCopy(char ** c, int dim1, int dim2) {
+    char ** d = new char * [dim1];
+
+    for (int i = 0; i < dim1; i += 1) {
+        d[i] = new char [dim2];
+
+        for (int j = 0; j < dim2; j += 1) {
+            d[i][j] = c[i][j];
+        }
+    }
+
+    return d;
+}
+
+
 
 
 // Test if file exists

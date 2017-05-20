@@ -50,7 +50,6 @@ int FileManager::close(std::string fileName) {
 
 }
 
-
 /*
 
     Depth is used in case a file is opened several times
@@ -62,6 +61,27 @@ int FileManager::close(std::string fileName) {
 
 int FileManager::close(std::string fileName, unsigned int depth) {
 
+    // Step 1 : find the file
+    int index_file = getIndex(fileName, depth);
+
+    // Step 1.ERROR : file not found
+    if (index_file == -1) {
+        return -1;
+    }
+
+    // Step 2 : close the files
+    audio_list[index_file]->close();
+
+    // Step 3 : delete the pair from the list
+    audio_list.erase(audio_list.begin() + index_file);
+
+    // Step 4 : return 0 or an error flag
+    return 0;
+}
+
+
+
+int FileManager::getIndex(std::string fileName, unsigned int depth) {
     int found,
         index_file;
 
@@ -85,17 +105,77 @@ int FileManager::close(std::string fileName, unsigned int depth) {
 //        }
     }
 
+    return index_file;
+}
+
+
+
+
+int FileManager::clone(std::string fileName) {
+    return clone(fileName, 0);
+
+}
+
+/*
+
+    Depth is used in case a file is opened several times
+
+    The function will browse the vector and copy AudioIn into audioOut
+    once it has seen it depth time (save the depth-th name entry)
+
+*/
+
+int FileManager::clone(std::string fileName, unsigned int depth) {
+
+
+    // Step 1 : find the file
+    int index_file = getIndex(fileName, depth);
+
+    // Step 1.ERROR : file not found
+    if (index_file == -1) {
+        return -1;
+    }
+
+    // Step 2 : clone the file
+    audio_list[index_file]->clone();
+
+    // Step 3 : return 0 or an error flag
+    return 0;
+}
+
+
+
+
+
+
+int FileManager::save(std::string fileName) {
+    return save(fileName, 0);
+
+}
+
+
+/*
+
+    Depth is used in case a file is opened several times
+
+    The function will browse the vector and save the audio created in the
+    found file once it has seen it depth time (save the depth-th name entry)
+
+*/
+
+int FileManager::save(std::string fileName, unsigned int depth) {
+
+    // Step 1 : find the file
+    int index_file = getIndex(fileName, depth);
+
     // Step 1.ERROR : Did not find the file
     if (index_file == -1) {
         return -1;
     }
 
-    // Step 2 : close the files
-    audio_list[index_file]->close();
+    // Step 2 : save the file
+    audio_list[index_file]->save();
 
-    // Step 3 : delete the pair from the list
-    audio_list.erase(audio_list.begin() + index_file);
-
-    // Step 4 : return 0 or an error flag
+    // Step 3 : return 0 or an error flag
     return 0;
 }

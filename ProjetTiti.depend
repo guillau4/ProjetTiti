@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1495200600 source:c:\users\demo\documents\programmation\projettiti\main.cpp
+1495300908 source:c:\users\demo\documents\programmation\projettiti\main.cpp
 	"FileManager.h"
 
 1487201669 c:\users\demo\documents\programmation\sfml-2.4.2\include\sfml\graphics.hpp
@@ -405,29 +405,30 @@
 1488462169 source:c:\users\demo\documents\programmation\projettiti\src\windowmanager.cpp
 	"WindowManager.h"
 
-1495197381 c:\users\demo\documents\programmation\projettiti\include\filemanager.h
+1495278772 c:\users\demo\documents\programmation\projettiti\include\filemanager.h
 	"AudioFileWAV.h"
 	"AudioFile.h"
 	<vector>
 
-1495200133 source:c:\users\demo\documents\programmation\projettiti\src\filemanager.cpp
+1495278703 source:c:\users\demo\documents\programmation\projettiti\src\filemanager.cpp
 	"FileManager.h"
 
-1495197991 c:\users\demo\documents\programmation\projettiti\include\audiofile.h
+1495300571 c:\users\demo\documents\programmation\projettiti\include\audiofile.h
 	<iostream>
 	<string>
+	<vector>
 	<fstream>
 	<sstream>
 	<sys/stat.h>
 	<unistd.h>
 
-1495206601 source:c:\users\demo\documents\programmation\projettiti\src\audiofile.cpp
+1495300739 source:c:\users\demo\documents\programmation\projettiti\src\audiofile.cpp
 	"AudioFile.h"
 
-1495200133 source:c:\users\demo\documents\programmation\projettiti\src\audiofilewav.cpp
+1495300534 source:c:\users\demo\documents\programmation\projettiti\src\audiofilewav.cpp
 	"AudioFileWAV.h"
 
-1495196170 c:\users\demo\documents\programmation\projettiti\include\audiofilewav.h
+1495298931 c:\users\demo\documents\programmation\projettiti\include\audiofilewav.h
 	"AudioFile.h"
 
 1495189475 source:c:\users\demo\documents\programmation\projettiti\src\effect.cpp
