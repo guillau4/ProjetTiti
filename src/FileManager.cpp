@@ -28,8 +28,8 @@ int FileManager::open(std::string fileName) {
     std::cout << "\tOpening the following file : " << std::endl;;
     std::cout << std::endl;
 
-    std::cout << "  Name      : " << name << std::endl;
-    std::cout << "  Extension : " << extension << std::endl;
+    std::cout << "            Name : " << name << std::endl;
+    std::cout << "       Extension : " << extension << std::endl;
     std::cout << std::endl;
 
     // Step 2 : Creating the object
@@ -146,12 +146,30 @@ int FileManager::clone(std::string fileName, unsigned int depth) {
 
 
 
-
-
-int FileManager::save(std::string fileName) {
-    return save(fileName, 0);
+int FileManager::delay(float seconds, std::string fileName) {
+    return delay(seconds, fileName, 0);
 
 }
+int FileManager::delay(float seconds, std::string fileName, unsigned int depth) {
+
+
+    // Step 1 : find the file
+    int index_file = getIndex(fileName, depth);
+
+    // Step 1.ERROR : file not found
+    if (index_file == -1) {
+        return -1;
+    }
+
+    // Step 2 : apply effect the file
+    audio_list[index_file]->delay(seconds);
+
+    // Step 3 : return 0 or an error flag
+    return 0;
+}
+
+
+
 
 
 /*
@@ -162,7 +180,10 @@ int FileManager::save(std::string fileName) {
     found file once it has seen it depth time (save the depth-th name entry)
 
 */
+int FileManager::save(std::string fileName) {
+    return save(fileName, 0);
 
+}
 int FileManager::save(std::string fileName, unsigned int depth) {
 
     // Step 1 : find the file

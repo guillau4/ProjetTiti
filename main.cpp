@@ -1,5 +1,6 @@
 #include "FileManager.h"
 
+
 int main()
 {
 
@@ -11,12 +12,13 @@ int main()
     std::string file1 = "canary.wav",
                 file2 = "ball.wav",
                 file3 = "808 OH.wav",
-                file = file3;
+                file = file1;
 
     file_manager.open(file);
     file_manager.clone(file);
 
     // Apply effects
+    file_manager.delay(7, file);
 
     file_manager.save(file);
     file_manager.close(file);

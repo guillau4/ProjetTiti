@@ -9,6 +9,9 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include "Formats.h"
+#include "Effect.h"
+
 
 /*
 
@@ -21,29 +24,6 @@
 
 */
 
-
-typedef struct {
-
-    std::string FileTypeBlocID;
-    unsigned long FileSize;
-    std::string FileFormatID;
-
-    std::string FormatBlocID;
-    unsigned long BlocSize;
-
-    unsigned long AudioFormat;
-    unsigned long NbrCanaux;
-    unsigned long Frequence;
-    unsigned long BytePerSec;
-    unsigned long BytePerBloc;
-    unsigned long BitsPerSample;
-
-    std::string DataBlocID;
-    unsigned long DataSize;
-
-    char ** Data;
-
-} AUDIO;
 
 
 
@@ -60,7 +40,8 @@ class AudioFile
 
         virtual ~AudioFile();
 
-        virtual int clone();
+        int delay(float seconds);
+        int clone();
         virtual int save();
         int close();
         std::string getName() {return name;};
@@ -81,7 +62,10 @@ class AudioFile
         char * toChar(unsigned long l, unsigned int length);
 
         // Cloning char **
-        char ** deepCopy(char ** c, int dim1, int dim2);
+        int ** deepCopy(int ** c, int dim1, int dim2);
+        unsigned char ** deepCopy(unsigned char ** c, int dim1, int dim2);
+        int ** uCharToIntArray(unsigned char ** c, int dim1, int dim2);
+        unsigned char ** intToUCharArray(int ** c, int dim1, int dim2);
 
         // Test a file name
         inline bool exists_test(std::string name);

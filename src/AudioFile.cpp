@@ -128,9 +128,26 @@ int AudioFile::save() {
     return 0;
 }
 
+
+int AudioFile::delay(float seconds) {
+    std::cout << "  Applying delay ... ";
+
+    audioOut = Effect::delay(seconds, audioOut);
+    std::cout << "Done" << std::endl;
+
+    return 0;
+}
+
 int AudioFile::clone() {
+    std::cout << "  Cloning audioIn into audioOut ... ";
+
+    int dim1 = audioIn.NbrCanaux,
+        dim2 = audioIn.DataSize / audioIn.BytePerBloc;
 
     audioOut = audioIn;
+    audioOut.Data = deepCopy(audioIn.Data, dim1, dim2);
+
+    std::cout << "Done" << std::endl;
 
     return 0;
 }
@@ -206,14 +223,63 @@ unsigned long AudioFile::toLong(int length) {
 
 
 
-char ** AudioFile::deepCopy(char ** c, int dim1, int dim2) {
-    char ** d = new char * [dim1];
+int ** AudioFile::deepCopy(int ** c, int dim1, int dim2) {
+    int ** d = new int * [dim1];
 
     for (int i = 0; i < dim1; i += 1) {
-        d[i] = new char [dim2];
+        d[i] = new int [dim2];
 
         for (int j = 0; j < dim2; j += 1) {
             d[i][j] = c[i][j];
+        }
+    }
+
+    return d;
+}
+
+
+
+unsigned char ** AudioFile::deepCopy(unsigned char ** c, int dim1, int dim2) {
+    unsigned char ** d = new unsigned char * [dim1];
+
+    for (int i = 0; i < dim1; i += 1) {
+        d[i] = new unsigned char [dim2];
+
+        for (int j = 0; j < dim2; j += 1) {
+            d[i][j] = c[i][j];
+        }
+    }
+
+    return d;
+}
+
+
+
+
+unsigned char ** AudioFile::intToUCharArray(int ** c, int dim1, int dim2) {
+    unsigned char ** d = new unsigned char * [dim1];
+
+    for (int i = 0; i < dim1; i += 1) {
+        d[i] = new unsigned char [dim2];
+
+        for (int j = 0; j < dim2; j += 1) {
+            d[i][j] = (unsigned char) (c[i][j] / 256 + 128);
+        }
+    }
+
+    return d;
+}
+
+
+
+int ** AudioFile::uCharToIntArray(unsigned char ** c, int dim1, int dim2) {
+    int ** d = new int * [dim1];
+
+    for (int i = 0; i < dim1; i += 1) {
+        d[i] = new int [dim2];
+
+        for (int j = 0; j < dim2; j += 1) {
+            d[i][j] = (c[i][j] - 128) * 256;
         }
     }
 

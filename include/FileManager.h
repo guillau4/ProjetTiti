@@ -35,6 +35,9 @@ class FileManager
         int clone(std::string fileName);
         int clone(std::string fileName, unsigned int depth);
 
+        int delay(float seconds, std::string fileName);
+        int delay(float seconds, std::string fileName, unsigned int depth);
+
         int save(std::string fileName);
         int save(std::string fileName, unsigned int depth);
 

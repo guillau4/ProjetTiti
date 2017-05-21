@@ -1,6 +1,8 @@
 #ifndef EFFECT_H
 #define EFFECT_H
 
+#include "Formats.h"
+
 
 class Effect
 {
@@ -8,13 +10,11 @@ class Effect
         Effect();
         virtual ~Effect();
 
-/*
-        WAV echo(double seconds, double factor, WAV input_WAV);
-        WAV echoWAV(double seconds, double factor);
 
-        WAV delay(double seconds, WAV input_WAV);
-        WAV delayWAV(double seconds);
-  */
+        static AUDIO echo(double seconds, double factor, AUDIO input);
+
+        static AUDIO delay(double seconds, AUDIO input);
+
     protected:
 
     private:

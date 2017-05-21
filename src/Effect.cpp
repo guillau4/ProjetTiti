@@ -1,4 +1,5 @@
 #include "Effect.h"
+#include <iostream>
 
 Effect::Effect()
 {
@@ -10,46 +11,51 @@ Effect::~Effect()
     //dtor
 }
 
-/*
 
-WAV AudioFile::echo(double seconds, double factor, WAV input_WAV) {
 
-    return input_WAV;
+AUDIO Effect::echo(double seconds, double factor, AUDIO input) {
+
+    AUDIO output = input;
+
+    return output;
 }
 
 
-WAV AudioFile::echoWAV(double seconds, double factor) {
+AUDIO Effect::delay(double seconds, AUDIO input) {
 
-    return echo(seconds, factor, original_WAV);
-}
+    AUDIO output = input;
 
+    unsigned long byte_delay = (unsigned long) (seconds * input.BytePerSec);
+    unsigned int nbC = input.NbrCanaux;
+    unsigned int nbB = input.DataSize / input.BytePerBloc;
+    unsigned int nbS = nbB * nbC;
 
-WAV AudioFile::delay(double seconds, WAV input_WAV) {
-    WAV output_WAV = input_WAV;
+    std::cout << nbC << " " << nbB << " " << nbS << std::endl;
 
-    unsigned long byte_delay = (unsigned long) (seconds * input_WAV.BytePerSec);
+    output.FileSize += byte_delay;
+    output.DataSize += byte_delay;
 
-    output_WAV.FileSize += byte_delay;
-    output_WAV.DataSize += byte_delay;
-
-    output_WAV.Data = new char [output_WAV.DataSize];
+    output.Data = new int * [nbC];
+    for (unsigned int i = 0; i < nbC; i += 1) {
+        output.Data[i] = new int [nbB + byte_delay];
+    }
 
     for (unsigned int i = 0; i < byte_delay; i += 1) {
+        for (unsigned int j = 0; j < nbC; j += 1) {
 
-        output_WAV.Data[i] = 0;
+            output.Data[j][i] = 0;
+        }
     }
 
-    for (unsigned int i = 0; i < output_WAV.DataSize - byte_delay; i += 1) {
-
-        output_WAV.Data[i + byte_delay] = input_WAV.Data[i];
+    for (unsigned int i = 0; i < nbB; i += 1) {
+        for (unsigned int j = 0; j < nbC; j += 1) {
+            if (i % 1000 == 0) {
+                std::cout << i+byte_delay << " " << j << std::endl;
+            }
+            output.Data[j][i + byte_delay] = input.Data[j][i];
+        }
     }
 
-    return output_WAV;
+    return output;
 
 }
-
-
-WAV AudioFile::delayWAV(double seconds) {
-
-    return delay(seconds, original_WAV);
-} */
