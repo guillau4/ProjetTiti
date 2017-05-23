@@ -35,29 +35,9 @@ AUDIO Effect::delay(double seconds, AUDIO input) {
     output.FileSize += byte_delay;
     output.DataSize += byte_delay;
 
-    output.Data.reserve(nbC);
     for (unsigned int i = 0; i < nbC; i += 1) {
-        output.Data[i].reserve(nbB + byte_delay);
-    }
 
-    for (unsigned int i = 0; i < byte_delay; i += 1) {
-        for (unsigned int j = 0; j < nbC; j += 1) {
-
-            output.Data[j][i] = 0;
-        }
-    }
-
-    for (unsigned int i = 0; i < nbB; i += 1) {
-        for (unsigned int j = 0; j < nbC; j += 1) {
-
-            /*
-            if (i % 1000 == 0) {
-                std::cout << i+byte_delay << " " << j << std::endl;
-            }
-            */
-
-            output.Data[j][i + byte_delay] = input.Data[j][i];
-        }
+        output.Data[i].insert(output.Data[i].begin(), byte_delay, 0);
     }
 
     return output;
