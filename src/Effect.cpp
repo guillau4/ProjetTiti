@@ -27,8 +27,6 @@ AUDIO Effect::delay(double seconds, AUDIO input) {
 
     unsigned long byte_delay = (unsigned long) (seconds * input.BytePerSec);
     unsigned int nbC = input.NbrCanaux;
-    unsigned int nbB = input.DataSize / input.BytePerBloc;
-    unsigned int nbS = nbB * nbC;
 
     //std::cout << nbC << " " << nbB << " " << nbS << std::endl;
 
