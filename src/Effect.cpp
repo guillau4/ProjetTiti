@@ -63,3 +63,23 @@ AUDIO Effect::delay(double seconds, AUDIO input) {
     return output;
 
 }
+
+AUDIO Effect::gain (double factor, AUDIO input){
+    double amplified;
+    AUDIO output;
+    unsigned int nbC = input.NbrCanaux;
+    unsigned int nbB = input.DataSize / input.BytePerBloc;
+
+    for (unsigned int i = 0; i < nbC; i++){
+        for(unsigned int j = 0; j <nbB; j++){
+                amplified = factor*input.Data[i][j];
+                if (amplified > 32766){
+                    amplified = 32766;
+                }else if(amplified<-32766){
+                    amplified = -32766;
+                }
+                output.Data[i][j]=amplified;
+        }
+    }
+    return output;
+}

@@ -14,6 +14,8 @@ class Effect
 
         static AUDIO delay(double seconds, AUDIO input);
 
+        static AUDIO gain (double factor, AUDIO input);
+
     protected:
 
     private:
