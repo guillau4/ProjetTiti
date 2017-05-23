@@ -1,3 +1,7 @@
+#include <string>
+#include <iostream>
+
+#include "ConsoleStream.h"
 #include "FileManager.h"
 
 

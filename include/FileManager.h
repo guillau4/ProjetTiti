@@ -27,26 +27,19 @@ class FileManager
         virtual ~FileManager();
 
         int open(std::string fileName);
-        int close(std::string fileName);
-        int close(std::string fileName, unsigned int depth);
+        int close(std::string fileName, unsigned int depth = 0);
+        int save(std::string fileName, unsigned int depth = 0);
 
-        int getIndex(std::string fileName, unsigned int depth);
+        int clone(std::string fileName, unsigned int depth = 0);
+        int delay(float seconds, std::string fileName, unsigned int depth = 0);
 
-        int clone(std::string fileName);
-        int clone(std::string fileName, unsigned int depth);
-
-        int delay(float seconds, std::string fileName);
-        int delay(float seconds, std::string fileName, unsigned int depth);
-
-        int save(std::string fileName);
-        int save(std::string fileName, unsigned int depth);
-
-        int getSize() {return audio_list.size();};
+        int getIndex(std::string fileName, unsigned int depth = 0);
+        int getSize() {return audioList.size();};
 
     protected:
 
     private:
-        std::vector<AudioFile*> audio_list;
+        std::vector<AudioFile*> audioList;
 
 
 };

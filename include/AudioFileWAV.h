@@ -1,7 +1,10 @@
 #ifndef AUDIOFILEWAV_H
 #define AUDIOFILEWAV_H
 
+#include <assert.h>
+
 #include "Formats.h"
+#include "ConsoleStream.h"
 #include "AudioFile.h"
 
 

@@ -10,7 +10,6 @@ class Effect
         Effect();
         virtual ~Effect();
 
-
         static AUDIO echo(double seconds, double factor, AUDIO input);
 
         static AUDIO delay(double seconds, AUDIO input);

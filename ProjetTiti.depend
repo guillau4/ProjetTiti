@@ -1,5 +1,8 @@
 # depslib dependency file v1.0
-1495328083 source:c:\users\demo\documents\programmation\projettiti\main.cpp
+1495538993 source:c:\users\demo\documents\programmation\projettiti\main.cpp
+	<string>
+	<iostream>
+	"ConsoleStream.h"
 	"FileManager.h"
 
 1487201669 c:\users\demo\documents\programmation\sfml-2.4.2\include\sfml\graphics.hpp
@@ -405,15 +408,15 @@
 1488462169 source:c:\users\demo\documents\programmation\projettiti\src\windowmanager.cpp
 	"WindowManager.h"
 
-1495322767 c:\users\demo\documents\programmation\projettiti\include\filemanager.h
+1495538411 c:\users\demo\documents\programmation\projettiti\include\filemanager.h
 	"AudioFileWAV.h"
 	"AudioFile.h"
 	<vector>
 
-1495329128 source:c:\users\demo\documents\programmation\projettiti\src\filemanager.cpp
+1495538411 source:c:\users\demo\documents\programmation\projettiti\src\filemanager.cpp
 	"FileManager.h"
 
-1495331809 c:\users\demo\documents\programmation\projettiti\include\audiofile.h
+1495538993 c:\users\demo\documents\programmation\projettiti\include\audiofile.h
 	<iostream>
 	<string>
 	<vector>
@@ -421,26 +424,38 @@
 	<sstream>
 	<sys/stat.h>
 	<unistd.h>
+	<assert.h>
 	"Formats.h"
 	"Effect.h"
 
-1495330861 source:c:\users\demo\documents\programmation\projettiti\src\audiofile.cpp
+1495539030 source:c:\users\demo\documents\programmation\projettiti\src\audiofile.cpp
 	"AudioFile.h"
 
-1495330970 source:c:\users\demo\documents\programmation\projettiti\src\audiofilewav.cpp
+1495538520 source:c:\users\demo\documents\programmation\projettiti\src\audiofilewav.cpp
 	"AudioFileWAV.h"
 
-1495331809 c:\users\demo\documents\programmation\projettiti\include\audiofilewav.h
+1495538520 c:\users\demo\documents\programmation\projettiti\include\audiofilewav.h
+	<assert.h>
 	"Formats.h"
+	"ConsoleStream.h"
 	"AudioFile.h"
 
-1495327505 source:c:\users\demo\documents\programmation\projettiti\src\effect.cpp
+1495538836 source:c:\users\demo\documents\programmation\projettiti\src\effect.cpp
 	"Effect.h"
 	<iostream>
 
-1495331809 c:\users\demo\documents\programmation\projettiti\include\effect.h
+1495418284 c:\users\demo\documents\programmation\projettiti\include\effect.h
 	"Formats.h"
 
-1495325391 c:\users\demo\documents\programmation\projettiti\include\formats.h
+1495536397 c:\users\demo\documents\programmation\projettiti\include\formats.h
 	<string>
+	<vector>
+
+1495471670 c:\users\demo\documents\programmation\projettiti\include\consolestream.h
+	<string>
+	<iostream>
+	<sstream>
+
+1495471670 source:c:\users\demo\documents\programmation\projettiti\src\consolestream.cpp
+	"ConsoleStream.h"
 

@@ -30,14 +30,14 @@ AUDIO Effect::delay(double seconds, AUDIO input) {
     unsigned int nbB = input.DataSize / input.BytePerBloc;
     unsigned int nbS = nbB * nbC;
 
-    std::cout << nbC << " " << nbB << " " << nbS << std::endl;
+    //std::cout << nbC << " " << nbB << " " << nbS << std::endl;
 
     output.FileSize += byte_delay;
     output.DataSize += byte_delay;
 
-    output.Data = new int * [nbC];
+    output.Data.reserve(nbC);
     for (unsigned int i = 0; i < nbC; i += 1) {
-        output.Data[i] = new int [nbB + byte_delay];
+        output.Data[i].reserve(nbB + byte_delay);
     }
 
     for (unsigned int i = 0; i < byte_delay; i += 1) {
@@ -49,9 +49,13 @@ AUDIO Effect::delay(double seconds, AUDIO input) {
 
     for (unsigned int i = 0; i < nbB; i += 1) {
         for (unsigned int j = 0; j < nbC; j += 1) {
+
+            /*
             if (i % 1000 == 0) {
                 std::cout << i+byte_delay << " " << j << std::endl;
             }
+            */
+
             output.Data[j][i + byte_delay] = input.Data[j][i];
         }
     }

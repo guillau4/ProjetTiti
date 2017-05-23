@@ -141,11 +141,13 @@ int AudioFile::delay(float seconds) {
 int AudioFile::clone() {
     std::cout << "  Cloning audioIn into audioOut ... ";
 
-    int dim1 = audioIn.NbrCanaux,
-        dim2 = audioIn.DataSize / audioIn.BytePerBloc;
+//    int dim1 = audioIn.NbrCanaux,
+//        dim2 = audioIn.DataSize / audioIn.BytePerBloc;
 
     audioOut = audioIn;
-    audioOut.Data = deepCopy(audioIn.Data, dim1, dim2);
+//    audioOut.Data = deepCopy(audioIn.Data, dim1, dim2);
+
+    assert(audioOut.Data.size() == audioIn.Data.size());
 
     std::cout << "Done" << std::endl;
 
@@ -222,7 +224,7 @@ unsigned long AudioFile::toLong(int length) {
 }
 
 
-
+/*
 int ** AudioFile::deepCopy(int ** c, int dim1, int dim2) {
     int ** d = new int * [dim1];
 
@@ -285,6 +287,42 @@ int ** AudioFile::uCharToIntArray(unsigned char ** c, int dim1, int dim2) {
 
     return d;
 }
+*/
+
+
+std::vector<std::vector<unsigned char>> AudioFile::intToUCharArray(std::vector<std::vector<int>> c) {
+
+    std::vector<std::vector<unsigned char>> d;
+
+    for (unsigned int i = 0; i < c.size(); i += 1) {
+
+        std::vector<unsigned char> di;
+        for (unsigned int j = 0; j < c[i].size(); j += 1) {
+            di.push_back((unsigned char) (c[i][j] / 256 + 128));
+        }
+        d.push_back(di);
+    }
+
+    return d;
+}
+
+
+
+std::vector<std::vector<int>> AudioFile::uCharToIntArray(std::vector<std::vector<unsigned char>> c) {
+
+    std::vector<std::vector<int>> d;
+
+    for (unsigned int i = 0; i < c.size(); i += 1) {
+
+        std::vector<int> di;
+        for (unsigned int j = 0; j < c[i].size(); j += 1) {
+            di.push_back((c[i][j] - 128) * 256);
+        }
+        d.push_back(di);
+    }
+
+    return d;
+}
 
 
 
@@ -297,7 +335,6 @@ inline bool AudioFile::exists_test (std::string name) {
     struct stat buffer;
     return (stat (name.c_str(), &buffer) == 0);
 }
-
 
 
 

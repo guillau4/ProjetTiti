@@ -2,6 +2,8 @@
 #define FORMATS_H
 
 #include <string>
+#include <vector>
+
 
 struct AUDIO {
 
@@ -22,7 +24,8 @@ struct AUDIO {
     std::string DataBlocID;
     unsigned long DataSize;
 
-    int ** Data;
+    std::vector<std::vector<int>> Data;
+    std::vector<std::vector<int>> FFT;
 
 };
 
@@ -50,7 +53,7 @@ struct WAV {
     std::string DataBlocID;
     unsigned long DataSize;
 
-    unsigned char ** Data;
+    std::vector<std::vector<unsigned char>> Data;
 
 };
 

@@ -12,13 +12,19 @@ AudioFile(name, ".wav", "wav\\", "created\\"){
 
     audioIn = updateAUDIO(original_WAV);
 
+    assert(original_WAV.Data.size() == audioIn.NbrCanaux);
+    assert(original_WAV.Data.size() == audioIn.Data.size());
+
 }
 
 
 
 AudioFileWAV::~AudioFileWAV()
 {
-    // Should make sure the files are closed
+    delete[] original_WAV.ExtraParamLong;
+    delete[] original_WAV.ExtraParamString;
+    delete[] created_WAV.ExtraParamLong;
+    delete[] created_WAV.ExtraParamString;
 }
 
 
@@ -171,12 +177,13 @@ void AudioFileWAV::readHeaderWAV(){
 
 void AudioFileWAV::getDataWAV() {
 
-    original_WAV.Data = new unsigned char * [original_WAV.NbrCanaux];
+//    original_WAV.Data = new unsigned char * [original_WAV.NbrCanaux];
 
-    for (unsigned int i = 0; i < original_WAV.NbrCanaux; i += 1) {
-        original_WAV.Data[i] = new unsigned char [original_WAV.DataSize / original_WAV.NbrCanaux];
+//    for (unsigned int i = 0; i < original_WAV.NbrCanaux; i += 1) {
+//        original_WAV.Data[i] = new unsigned char [original_WAV.DataSize / original_WAV.NbrCanaux];
 
-    }
+//    }
+
 
     if (fileIn) {
 
@@ -186,11 +193,13 @@ void AudioFileWAV::getDataWAV() {
         int blocLength = bufferLength * original_WAV.NbrCanaux;
 
         char * buffer = new char[bufferLength];
-        for (unsigned int i = 0; i < original_WAV.DataSize / blocLength ; i += 1) {
-            // i : bloc (all channels) = blocLength
 
-            for (unsigned int j = 0; j < original_WAV.NbrCanaux; j += 1) {
-                // j : sample (one channel) = bufferLength
+        for (unsigned int j = 0; j < original_WAV.NbrCanaux; j += 1) {
+            // j : sample (one channel) = bufferLength
+
+            std::vector<unsigned char> tmp;
+            for (unsigned int i = 0; i < original_WAV.DataSize / blocLength ; i += 1) {
+            // i : bloc (all channels) = blocLength
 
                 fileIn.read(buffer, bufferLength);
                 for (int k = 0; k < bufferLength; k += 1) {
@@ -199,9 +208,10 @@ void AudioFileWAV::getDataWAV() {
                     //if (i % 1000 == 0)
                     //    std::cout << "i : " << i << "   j : " << j << "   k : " << k << std::endl;
 
-                    original_WAV.Data[j][i * bufferLength + k] = buffer[k];
+                    tmp.push_back(buffer[k]);
                 }
             }
+            original_WAV.Data.push_back(tmp);
         }
 
         if (fileIn) {
@@ -211,12 +221,17 @@ void AudioFileWAV::getDataWAV() {
 
             std::cout << "Error" << std::endl;
         }
+
+        delete[] buffer;
+
     } else {
 
         std::cout << "fileIn closed : getDataWAV impossible" << std::endl;
     }
 
     std::cout << std::endl;
+
+
 }
 
 
@@ -250,9 +265,9 @@ AUDIO AudioFileWAV::updateAUDIO(WAV w){
     a.DataBlocID        =   w.DataBlocID    ;
     a.DataSize          =   w.DataSize      ;
 
-    int dim1 = w.NbrCanaux,
-        dim2 = w.DataSize / w.NbrCanaux;
-    a.Data = uCharToIntArray(w.Data, dim1, dim2);
+    //int dim1 = w.NbrCanaux,
+    //    dim2 = w.DataSize / w.NbrCanaux;
+    a.Data = uCharToIntArray(w.Data/*, dim1, dim2*/);
 
     std::cout << "Done" << std::endl;
 
@@ -289,9 +304,7 @@ WAV AudioFileWAV::updateWAV(AUDIO a){
     w.DataBlocID        =   a.DataBlocID    ;
     w.DataSize          =   a.DataSize      ;
 
-    int dim1 = a.NbrCanaux,
-        dim2 = a.DataSize / a.NbrCanaux;
-    w.Data = intToUCharArray(a.Data, dim1, dim2);
+    w.Data = intToUCharArray(a.Data);
 
     std::cout << "Done" << std::endl;
     return w;
@@ -381,8 +394,6 @@ void AudioFileWAV::createWAV(WAV input_WAV) {
     delete[] buffer;
     buffer = new char[bufferLength];
 
-    std::cout << input_WAV.DataSize << " " << blocLength << std::endl;
-
     for (unsigned int i = 0; i < input_WAV.DataSize / blocLength; i += 1) {
         // i : bloc (all channels) = blocLength
 
@@ -393,7 +404,7 @@ void AudioFileWAV::createWAV(WAV input_WAV) {
                 // k : byte = 1
 
                 if (i % 1000 == 0) {
-                    std::cout << i << " " << j << " " << k << std::endl;
+                    //std::cout << i << " " << j << " " << k << std::endl;
                 }
 
                 buffer[k] = input_WAV.Data[j][i * bufferLength + k];
@@ -406,6 +417,8 @@ void AudioFileWAV::createWAV(WAV input_WAV) {
     std::cout << "  File created"<< std::endl;
     std::cout << " =================================================="<< std::endl;
     std::cout << std::endl;
+
+    delete[] buffer;
 
 }
 
