@@ -33,3 +33,9 @@
 
 # ProjetTiti Specific Folders
 created/
+unused/
+bin/
+obj/
+
+# CodeBlocks specific files
+ProjetTiti.*
