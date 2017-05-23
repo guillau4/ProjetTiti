@@ -1,4 +1,4 @@
-#include "ConsoleStream.h"
+#include "../include/ConsoleStream.h"
 
 ConsoleStream::ConsoleStream()
 {

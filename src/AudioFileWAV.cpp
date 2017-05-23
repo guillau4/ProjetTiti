@@ -1,4 +1,4 @@
-#include "AudioFileWAV.h"
+#include "../include/AudioFileWAV.h"
 
 AudioFileWAV::AudioFileWAV()
 {

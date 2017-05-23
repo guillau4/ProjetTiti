@@ -1,4 +1,4 @@
-#include "Effect.h"
+#include "../include/Effect.h"
 #include <iostream>
 
 Effect::Effect()

@@ -1,8 +1,8 @@
 #include <string>
 #include <iostream>
 
-#include "ConsoleStream.h"
-#include "FileManager.h"
+#include "include/ConsoleStream.h"
+#include "include/FileManager.h"
 
 
 int main()

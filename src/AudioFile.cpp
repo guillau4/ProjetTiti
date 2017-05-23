@@ -1,4 +1,4 @@
-#include "AudioFile.h"
+#include "../include/AudioFile.h"
 
 AudioFile::AudioFile()
 {
