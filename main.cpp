@@ -23,9 +23,9 @@ int main()
     file_manager.open(file);
 
     // Apply some effects
-//    Effect::gain(file_manager.getAUDIOadd(file), 0.01);
-//    Effect::delay(file_manager.getAUDIOadd(file), 1.5);
-//    Effect::gain(file_manager.getAUDIOadd(file), 100);
+    Effect::gain(file_manager.getAUDIOadd(file), 0.01);
+    Effect::delay(file_manager.getAUDIOadd(file), 1.5);
+    Effect::gain(file_manager.getAUDIOadd(file), 100);
 
     Effect::add1sec(file_manager.getAUDIOadd(file));
 

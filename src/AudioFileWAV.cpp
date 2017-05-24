@@ -177,10 +177,14 @@ void AudioFileWAV::getDataWAV() {
         int bufferLength = my_WAV.BitsPerSample / 8;
         char * buffer = new char[bufferLength];
 
-        for (unsigned int j = 0; j < my_WAV.NbrCanaux; j += 1) {
+        for (unsigned int i = 0; i < my_WAV.NbrCanaux; i += 1) {
+            std::vector <unsigned char> tmp;
+            my_WAV.Data.push_back(tmp);
+        }
 
-            std::vector<unsigned char> tmp;
-            for (unsigned int i = 0; i < my_WAV.DataSize / my_WAV.BytePerBloc ; i += 1) {
+        for (unsigned int i = 0; i < my_WAV.DataSize / my_WAV.BytePerBloc ; i += 1) {
+
+            for (unsigned int j = 0; j < my_WAV.NbrCanaux; j += 1) {
 
                 fileIn.read(buffer, bufferLength);
                 for (int k = 0; k < bufferLength; k += 1) {
@@ -188,10 +192,9 @@ void AudioFileWAV::getDataWAV() {
                     //if (i % 1000 == 0)
                     //    std::cout << "i : " << i << "   j : " << j << "   k : " << k << std::endl;
 
-                    tmp.push_back(buffer[k]);
+                    my_WAV.Data[j].push_back(buffer[k]);
                 }
             }
-            my_WAV.Data.push_back(tmp);
         }
 
 
@@ -346,14 +349,13 @@ void AudioFileWAV::createFile() {
 
 
     int bufferLength = my_WAV.BitsPerSample / 8;
-    int blocLength = bufferLength * my_WAV.NbrCanaux;
 
     delete[] buffer;
     buffer = new char[bufferLength];
 
-    for (unsigned int i = 0; i < my_WAV.NbrCanaux; i += 1) {
+    for (unsigned int i = 0; i < my_WAV.DataSize / my_WAV.BytePerBloc; i += 1) {
 
-        for (unsigned int j = 0; j < my_WAV.DataSize / blocLength; j += 1) {
+        for (unsigned int j = 0; j < my_WAV.NbrCanaux; j += 1) {
 
             for (int k = 0; k < bufferLength; k += 1) {
 
@@ -363,7 +365,7 @@ void AudioFileWAV::createFile() {
                 }
 */
 
-                buffer[k] = my_WAV.Data[i][j * bufferLength + k];
+                buffer[k] = my_WAV.Data[j][i * bufferLength + k];
             }
 
             fileOut.write(buffer, bufferLength);
