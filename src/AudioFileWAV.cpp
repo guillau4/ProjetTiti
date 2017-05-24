@@ -182,14 +182,18 @@ void AudioFileWAV::getDataWAV() {
             std::vector<unsigned char> tmp;
             for (unsigned int i = 0; i < my_WAV.DataSize / my_WAV.BytePerBloc ; i += 1) {
 
-                //if (i % 1000 == 0)
-                //    std::cout << "i : " << i << "   j : " << j << std::endl;
-
                 fileIn.read(buffer, bufferLength);
-                tmp.insert(tmp.end(), &buffer[0], &buffer[bufferLength]);
+                for (int k = 0; k < bufferLength; k += 1) {
+
+                    //if (i % 1000 == 0)
+                    //    std::cout << "i : " << i << "   j : " << j << "   k : " << k << std::endl;
+
+                    tmp.push_back(buffer[k]);
+                }
             }
             my_WAV.Data.push_back(tmp);
         }
+
 
         if (fileIn) {
 
@@ -337,7 +341,6 @@ void AudioFileWAV::createFile() {
     buffer = toChar(my_WAV.DataSize, 4);
     fileOut.write(buffer, 4);
 
-    std::cout << "so far so good ... ";
 
 
 
