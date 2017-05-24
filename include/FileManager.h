@@ -32,6 +32,7 @@ class FileManager
 
         int clone(std::string fileName, unsigned int depth = 0);
         int delay(float seconds, std::string fileName, unsigned int depth = 0);
+        int gain(double factor, std::string fileName, unsigned int depth = 0);
 
         int getIndex(std::string fileName, unsigned int depth = 0);
         int getSize() {return audioList.size();};

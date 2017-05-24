@@ -42,6 +42,7 @@ class AudioFile
         virtual ~AudioFile();
 
         int delay(float seconds);
+        int gain(double factor);
         int clone();
         virtual int save();
         int close();

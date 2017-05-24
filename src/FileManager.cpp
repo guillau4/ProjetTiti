@@ -155,7 +155,23 @@ int FileManager::delay(float seconds, std::string fileName, unsigned int depth) 
 
 
 
+int FileManager::gain(double factor, std::string fileName, unsigned int depth) {
 
+
+    // Step 1 : find the file
+    int index = getIndex(fileName, depth);
+
+    // Step 1.ERROR : file not found
+    if (index == -1) {
+        return -1;
+    }
+
+    // Step 2 : apply effect the file
+    audioList[index]->gain(factor);
+
+    // Step 3 : return 0 or an error flag
+    return 0;
+}
 
 /*
 

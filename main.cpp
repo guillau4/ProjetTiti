@@ -22,7 +22,7 @@ int main()
     file_manager.clone(file);
 
     // Apply effects
-    file_manager.delay(7, file);
+    file_manager.gain(2, file);
 
     file_manager.save(file);
     file_manager.close(file);

@@ -137,6 +137,14 @@ int AudioFile::delay(float seconds) {
 
     return 0;
 }
+int AudioFile::gain(double factor) {
+    std::cout << "  Applying gain ... ";
+
+    audioOut = Effect::gain(factor, audioOut);
+    std::cout << "Done" << std::endl;
+
+    return 0;
+}
 
 int AudioFile::clone() {
     std::cout << "  Cloning audioIn into audioOut ... ";
