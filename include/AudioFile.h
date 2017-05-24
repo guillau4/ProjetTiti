@@ -31,7 +31,6 @@
 class AudioFile
 {
     public:
-        AudioFile();
         AudioFile(std::string name);
 
         AudioFile(std::string name,
@@ -41,11 +40,8 @@ class AudioFile
 
         virtual ~AudioFile();
 
-        int delay(float seconds);
-        int gain(double factor);
-        int clone();
-        virtual int save();
-        int close();
+        virtual int save(){return 0;};
+        AUDIO * getAUDIOadd() {return &my_AUDIO;};
         std::string getName() {return name;};
         std::string getFileName() {return name + extension;};
 
@@ -56,6 +52,7 @@ class AudioFile
         int openOut();
         int openOut(int n);
         int findNameAndOpenOut();
+        virtual void createFile(){};
 
         // Reading and writing in files
         std::string toString(int length);
@@ -71,8 +68,8 @@ class AudioFile
         unsigned char ** intToUCharArray(int ** c, int dim1, int dim2);
         */
 
-        std::vector<std::vector<int>> uCharToIntArray(std::vector<std::vector<unsigned char>> c);
-        std::vector<std::vector<unsigned char>> intToUCharArray(std::vector<std::vector<int>> c);
+        std::vector <std::vector <int> > uCharToIntArray(std::vector <std::vector <unsigned char> > c);
+        std::vector <std::vector <unsigned char> > intToUCharArray(std::vector <std::vector <int> > c);
 
         // Test a file name
         inline bool exists_test(std::string name);
@@ -86,9 +83,7 @@ class AudioFile
         std::string extension;
         std::string pathIn;
         std::string pathOut;
-        AUDIO audioIn;
-        AUDIO audioOut;
-
+        AUDIO my_AUDIO;
 
 
     private:

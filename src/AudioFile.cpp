@@ -1,9 +1,5 @@
 #include "../include/AudioFile.h"
 
-AudioFile::AudioFile()
-{
-    //ctor
-}
 
 AudioFile::AudioFile(std::string name) :
 name        (name)          ,
@@ -111,59 +107,6 @@ int AudioFile::findNameAndOpenOut() {
 
     return 0;
 }
-
-
-int AudioFile::close() {
-    fileIn.close();
-    fileOut.close();
-
-    return 0;
-}
-
-
-int AudioFile::save() {
-
-    findNameAndOpenOut();
-
-    return 0;
-}
-
-
-int AudioFile::delay(float seconds) {
-    std::cout << "  Applying delay ... ";
-
-    audioOut = Effect::delay(seconds, audioOut);
-    std::cout << "Done" << std::endl;
-
-    return 0;
-}
-int AudioFile::gain(double factor) {
-    std::cout << "  Applying gain ... ";
-
-    audioOut = Effect::gain(factor, audioOut);
-    std::cout << "Done" << std::endl;
-
-    return 0;
-}
-
-int AudioFile::clone() {
-    std::cout << "  Cloning audioIn into audioOut ... ";
-
-//    int dim1 = audioIn.NbrCanaux,
-//        dim2 = audioIn.DataSize / audioIn.BytePerBloc;
-
-    audioOut = audioIn;
-//    audioOut.Data = deepCopy(audioIn.Data, dim1, dim2);
-
-    assert(audioOut.Data.size() == audioIn.Data.size());
-
-    std::cout << "Done" << std::endl;
-
-    return 0;
-}
-
-
-
 
 
 
@@ -298,13 +241,13 @@ int ** AudioFile::uCharToIntArray(unsigned char ** c, int dim1, int dim2) {
 */
 
 
-std::vector<std::vector<unsigned char>> AudioFile::intToUCharArray(std::vector<std::vector<int>> c) {
+std::vector <std::vector <unsigned char> > AudioFile::intToUCharArray(std::vector <std::vector <int> > c) {
 
-    std::vector<std::vector<unsigned char>> d;
+    std::vector <std::vector <unsigned char> > d;
 
     for (unsigned int i = 0; i < c.size(); i += 1) {
 
-        std::vector<unsigned char> di;
+        std::vector <unsigned char> di;
         for (unsigned int j = 0; j < c[i].size(); j += 1) {
             di.push_back((unsigned char) (c[i][j] / 256 + 128));
         }
@@ -316,13 +259,13 @@ std::vector<std::vector<unsigned char>> AudioFile::intToUCharArray(std::vector<s
 
 
 
-std::vector<std::vector<int>> AudioFile::uCharToIntArray(std::vector<std::vector<unsigned char>> c) {
+std::vector <std::vector <int> > AudioFile::uCharToIntArray(std::vector <std::vector <unsigned char> > c) {
 
-    std::vector<std::vector<int>> d;
+    std::vector <std::vector <int> > d;
 
     for (unsigned int i = 0; i < c.size(); i += 1) {
 
-        std::vector<int> di;
+        std::vector <int> di;
         for (unsigned int j = 0; j < c[i].size(); j += 1) {
             di.push_back((c[i][j] - 128) * 256);
         }

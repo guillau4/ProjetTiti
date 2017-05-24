@@ -12,7 +12,6 @@
 class AudioFileWAV : public AudioFile
 {
     public:
-        AudioFileWAV();
         AudioFileWAV(std::string name);
         virtual ~AudioFileWAV();
 
@@ -20,26 +19,18 @@ class AudioFileWAV : public AudioFile
         void readHeaderWAV();
         void getDataWAV();
 
-        AUDIO updateAUDIO();
-        AUDIO updateAUDIO(WAV w);
-
-        WAV updateWAV();
-        WAV updateWAV(AUDIO a);
-
-        void createWAV(WAV input_WAV);
-        void createWAV();
+        void updateAUDIO();
+        void updateWAV();
 
         int save() override;
-
-        //void applyEffect();
+        void createFile() override;
 
 
     protected:
 
     private:
 
-        WAV original_WAV;
-        WAV created_WAV;
+        WAV my_WAV;
 };
 
 #endif // AUDIOFILEWAV_H

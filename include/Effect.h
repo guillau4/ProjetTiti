@@ -10,11 +10,13 @@ class Effect
         Effect();
         virtual ~Effect();
 
-        static AUDIO echo(double seconds, double factor, AUDIO input);
+        static void echo(AUDIO * a, double seconds, double factor);
 
-        static AUDIO delay(double seconds, AUDIO input);
+        static void delay(AUDIO * a, double seconds);
 
-        static AUDIO gain (double factor, AUDIO input);
+        static void gain (AUDIO * a, double factor);
+
+        static void add1sec (AUDIO * a);
 
     protected:
 

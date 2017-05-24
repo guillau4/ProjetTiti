@@ -45,33 +45,19 @@ int FileManager::open(std::string fileName) {
 }
 
 
-/*
 
-    Depth is used in case a file is opened several times
-
-    The function will browse the vector and delete the
-    file once it has seen it depth time (delete the depth-th name entry)
-
-*/
-
-int FileManager::close(std::string fileName, unsigned int depth) {
+AUDIO * FileManager::getAUDIOadd(std::string fileName, unsigned int depth) {
 
     // Step 1 : find the file
     int index = getIndex(fileName, depth);
 
     // Step 1.ERROR : file not found
     if (index == -1) {
-        return -1;
+        return nullptr;
     }
 
-    // Step 2 : close the files
-    audioList[index]->close();
-
-    // Step 3 : delete the pair from the list
-    audioList.erase(audioList.begin() + index);
-
-    // Step 4 : return 0 or an error flag
-    return 0;
+    // Step 2 : return the AudioFile
+    return audioList[index]->getAUDIOadd();
 }
 
 
@@ -106,72 +92,9 @@ int FileManager::getIndex(std::string fileName, unsigned int depth) {
 
 
 
-/*
-
-    Depth is used in case a file is opened several times
-
-    The function will browse the vector and copy AudioIn into audioOut
-    once it has seen it depth time (save the depth-th name entry)
-
-*/
-
-int FileManager::clone(std::string fileName, unsigned int depth) {
-
-
-    // Step 1 : find the file
-    int index = getIndex(fileName, depth);
-
-    // Step 1.ERROR : file not found
-    if (index == -1) {
-        return -1;
-    }
-
-    // Step 2 : clone the file
-    audioList[index]->clone();
-
-    // Step 3 : return 0 or an error flag
-    return 0;
-}
 
 
 
-int FileManager::delay(float seconds, std::string fileName, unsigned int depth) {
-
-
-    // Step 1 : find the file
-    int index = getIndex(fileName, depth);
-
-    // Step 1.ERROR : file not found
-    if (index == -1) {
-        return -1;
-    }
-
-    // Step 2 : apply effect the file
-    audioList[index]->delay(seconds);
-
-    // Step 3 : return 0 or an error flag
-    return 0;
-}
-
-
-
-int FileManager::gain(double factor, std::string fileName, unsigned int depth) {
-
-
-    // Step 1 : find the file
-    int index = getIndex(fileName, depth);
-
-    // Step 1.ERROR : file not found
-    if (index == -1) {
-        return -1;
-    }
-
-    // Step 2 : apply effect the file
-    audioList[index]->gain(factor);
-
-    // Step 3 : return 0 or an error flag
-    return 0;
-}
 
 /*
 
