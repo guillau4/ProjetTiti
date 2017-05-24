@@ -35,7 +35,6 @@ void AudioFileWAV::readWAV() {
     std::cout << std::endl;
     getDataWAV();
 // *my_WAV.DataSize* bytes of data
-
 }
 
 
@@ -115,7 +114,7 @@ void AudioFileWAV::readHeaderWAV(){
         my_WAV.ExtraParamString = new std::string [my_WAV.ExtraParamSize / 4];
         my_WAV.ExtraParamLong = new unsigned long [my_WAV.ExtraParamSize / 4];
 
-        for (unsigned int i = 0; i < my_WAV.ExtraParamSize / 4; i += 1) {
+        for (unsigned long i = 0; i < my_WAV.ExtraParamSize / 4; i += 1) {
             my_WAV.ExtraParamString[i] = toString(2);
             fileIn.seekg(-4, std::ios_base::cur);
             my_WAV.ExtraParamLong[i] = toLong(2);
@@ -174,28 +173,28 @@ void AudioFileWAV::getDataWAV() {
 
         std::cout << "  Reading " << my_WAV.DataSize << " bits of data ... ";
 
-        int bufferLength = my_WAV.BitsPerSample / 8;
-        char * buffer = new char[bufferLength];
 
-        for (unsigned int i = 0; i < my_WAV.NbrCanaux; i += 1) {
-            std::vector <unsigned char> tmp;
+        int bpS = my_WAV.BitsPerSample / 8;
+        int channel = 0;
+
+        for (unsigned long i = 0; i < my_WAV.NbrCanaux; i += 1) {
+            std::vector <unsigned long> tmp;
             my_WAV.Data.push_back(tmp);
         }
 
-        for (unsigned int i = 0; i < my_WAV.DataSize / my_WAV.BytePerBloc ; i += 1) {
 
-            for (unsigned int j = 0; j < my_WAV.NbrCanaux; j += 1) {
+        // Reading all the samples one by one, advancing to the next channel each time
+        for (unsigned long sample = 0; sample < my_WAV.DataSize / bpS; sample += 1) {
 
-                fileIn.read(buffer, bufferLength);
-                for (int k = 0; k < bufferLength; k += 1) {
+            //if (i % 1000 == 0)
+            //    std::cout << "sample : " << sample << "   channel : " << channel << std::endl;
 
-                    //if (i % 1000 == 0)
-                    //    std::cout << "i : " << i << "   j : " << j << "   k : " << k << std::endl;
+            my_WAV.Data[channel].push_back(toLong(bpS));
 
-                    my_WAV.Data[j].push_back(buffer[k]);
-                }
-            }
+            channel += 1;
+            channel %= my_WAV.NbrCanaux;
         }
+
 
 
         if (fileIn) {
@@ -205,8 +204,6 @@ void AudioFileWAV::getDataWAV() {
 
             std::cout << "Error" << std::endl;
         }
-
-        delete[] buffer;
 
     } else {
 
@@ -241,7 +238,26 @@ void AudioFileWAV::updateAUDIO(){
     my_AUDIO.DataBlocID        =   my_WAV.DataBlocID    ;
     my_AUDIO.DataSize          =   my_WAV.DataSize      ;
 
-    my_AUDIO.Data = uCharToIntArray(my_WAV.Data);
+
+
+    // Vector copy
+    // transforming each bloc of data into a double
+
+    my_AUDIO.Data.clear();
+
+    unsigned long nbB = my_AUDIO.DataSize / my_AUDIO.BytePerBloc;
+    unsigned long offset = 1 << (my_WAV.BitsPerSample - 1);
+
+    for (unsigned long i = 0; i < my_AUDIO.NbrCanaux; i += 1) {
+        std::vector <double> tmp;
+        my_AUDIO.Data.push_back(tmp);
+
+        for (unsigned long j = 0; j < nbB; j += 1) {
+
+            my_AUDIO.Data[i].push_back((double) my_WAV.Data[i][j] - (double) offset);
+        }
+    }
+
 
     std::cout << "Done" << std::endl;
 }
@@ -269,7 +285,33 @@ void AudioFileWAV::updateWAV(){
     my_WAV.DataBlocID        =   my_AUDIO.DataBlocID    ;
     my_WAV.DataSize          =   my_AUDIO.DataSize      ;
 
-    my_WAV.Data = intToUCharArray(my_AUDIO.Data);
+
+
+    // Vector copy
+    // transforming each bloc of data into unsigned chars
+
+    my_WAV.Data.clear();
+
+    unsigned long nbB = my_AUDIO.DataSize / my_AUDIO.BytePerBloc;
+    unsigned long offset = 1 << (my_WAV.BitsPerSample - 1);
+
+    for (unsigned long i = 0; i < my_WAV.NbrCanaux; i += 1) {
+        std::vector <unsigned long> tmp;
+        my_WAV.Data.push_back(tmp);
+
+        for (unsigned long j = 0; j < nbB; j += 1) {
+
+            if (my_AUDIO.Data[i][j] > (1 << (my_AUDIO.BitsPerSample - 1)) - 1) {
+                my_AUDIO.Data[i][j] = (1 << (my_AUDIO.BitsPerSample - 1)) - 1;
+            } else if (my_AUDIO.Data[i][j] < - (1 << (my_AUDIO.BitsPerSample - 1))) {
+                my_AUDIO.Data[i][j] = - (1 << (my_AUDIO.BitsPerSample - 1));
+            }
+
+            my_WAV.Data[i].push_back((unsigned long) (my_AUDIO.Data[i][j] + (double)offset));
+
+        }
+    }
+
 
     std::cout << "Done" << std::endl;
 }
@@ -346,31 +388,21 @@ void AudioFileWAV::createFile() {
 
 
 
-
-
     int bufferLength = my_WAV.BitsPerSample / 8;
 
     delete[] buffer;
     buffer = new char[bufferLength];
 
-    for (unsigned int i = 0; i < my_WAV.DataSize / my_WAV.BytePerBloc; i += 1) {
+    for (unsigned long i = 0; i < my_WAV.DataSize / my_WAV.BytePerBloc; i += 1) {
 
-        for (unsigned int j = 0; j < my_WAV.NbrCanaux; j += 1) {
+        for (unsigned long j = 0; j < my_WAV.NbrCanaux; j += 1) {
 
-            for (int k = 0; k < bufferLength; k += 1) {
-
-/*
-                if (i % 1000 == 0) {
-                    std::cout << i << " " << j << " " << k << std::endl;
-                }
-*/
-
-                buffer[k] = my_WAV.Data[j][i * bufferLength + k];
-            }
+            buffer = toChar(my_WAV.Data[j][i], bufferLength);
 
             fileOut.write(buffer, bufferLength);
         }
     }
+
 
     std::cout << "  File created"<< std::endl;
     std::cout << " =================================================="<< std::endl;

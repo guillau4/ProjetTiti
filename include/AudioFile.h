@@ -66,10 +66,11 @@ class AudioFile
         unsigned char ** deepCopy(unsigned char ** c, int dim1, int dim2);
         int ** uCharToIntArray(unsigned char ** c, int dim1, int dim2);
         unsigned char ** intToUCharArray(int ** c, int dim1, int dim2);
-        */
 
         std::vector <std::vector <int> > uCharToIntArray(std::vector <std::vector <unsigned char> > c);
         std::vector <std::vector <unsigned char> > intToUCharArray(std::vector <std::vector <int> > c);
+        */
+
 
         // Test a file name
         inline bool exists_test(std::string name);

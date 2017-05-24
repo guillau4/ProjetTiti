@@ -24,8 +24,8 @@ struct AUDIO {
     std::string DataBlocID;
     unsigned long DataSize;
 
-    std::vector<std::vector<int>> Data;
-    std::vector<std::vector<int>> FFT;
+    std::vector <std::vector <double> > Data;
+    // ? std::vector <std::vector <int> > FFT;
 
 };
 
@@ -53,7 +53,7 @@ struct WAV {
     std::string DataBlocID;
     unsigned long DataSize;
 
-    std::vector<std::vector<unsigned char>> Data;
+    std::vector <std::vector <unsigned long> > Data;
 
 };
 

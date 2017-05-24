@@ -128,7 +128,7 @@ std::string AudioFile::toString(int length) {
 char * AudioFile::toChar(std::string s, unsigned int length) {
     char * c = new char [length];
 
-    for (unsigned int i = 0; i < length; i += 1) {
+    for (unsigned long i = 0; i < length; i += 1) {
         if (i < s.length()) {
             c[i] = s[i];
         } else {
@@ -142,7 +142,7 @@ char * AudioFile::toChar(std::string s, unsigned int length) {
 char * AudioFile::toChar(unsigned long l, unsigned int length) {
     char * c = new char [length];
 
-    for (unsigned int i = 0; i < length; i += 1) {
+    for (unsigned long i = 0; i < length; i += 1) {
         c[i] = (char) (l % 256);
         l /= 256;
 
@@ -238,17 +238,16 @@ int ** AudioFile::uCharToIntArray(unsigned char ** c, int dim1, int dim2) {
 
     return d;
 }
-*/
 
 
 std::vector <std::vector <unsigned char> > AudioFile::intToUCharArray(std::vector <std::vector <int> > c) {
 
     std::vector <std::vector <unsigned char> > d;
 
-    for (unsigned int i = 0; i < c.size(); i += 1) {
+    for (unsigned long i = 0; i < c.size(); i += 1) {
 
         std::vector <unsigned char> di;
-        for (unsigned int j = 0; j < c[i].size(); j += 1) {
+        for (unsigned long j = 0; j < c[i].size(); j += 1) {
             di.push_back((unsigned char) (c[i][j] / 256 + 128));
         }
         d.push_back(di);
@@ -263,10 +262,10 @@ std::vector <std::vector <int> > AudioFile::uCharToIntArray(std::vector <std::ve
 
     std::vector <std::vector <int> > d;
 
-    for (unsigned int i = 0; i < c.size(); i += 1) {
+    for (unsigned long i = 0; i < c.size(); i += 1) {
 
         std::vector <int> di;
-        for (unsigned int j = 0; j < c[i].size(); j += 1) {
+        for (unsigned long j = 0; j < c[i].size(); j += 1) {
             di.push_back((c[i][j] - 128) * 256);
         }
         d.push_back(di);
@@ -274,7 +273,7 @@ std::vector <std::vector <int> > AudioFile::uCharToIntArray(std::vector <std::ve
 
     return d;
 }
-
+*/
 
 
 

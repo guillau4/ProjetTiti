@@ -1,6 +1,8 @@
 #ifndef EFFECT_H
 #define EFFECT_H
 
+#include <assert.h>
+
 #include "Formats.h"
 
 
@@ -10,7 +12,9 @@ class Effect
         Effect();
         virtual ~Effect();
 
-        static void echo(AUDIO * a, double seconds, double factor);
+        static void echo(AUDIO * a, double seconds, double factor, int number = 10);
+
+        static void add(AUDIO * a, AUDIO * b);
 
         static void delay(AUDIO * a, double seconds);
 
